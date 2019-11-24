@@ -90,6 +90,45 @@ class PasswordField: UIControl {
             showHideButton.trailingAnchor.constraint(equalTo: passwordView.trailingAnchor, constant: -textFieldMargin),
             showHideButton.bottomAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: -textFieldMargin)
         ])
+        
+        // Weak View
+        addSubview(weakView)
+        weakView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            weakView.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: standardMargin * 2),
+            weakView.leadingAnchor.constraint(equalTo: passwordView.leadingAnchor),
+            weakView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            weakView.heightAnchor.constraint(equalToConstant: colorViewSize.height)
+        ])
+        
+        weakView.backgroundColor = weakColor
+        
+        // Medium View
+        addSubview(mediumView)
+        mediumView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mediumView.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: standardMargin * 2),
+            mediumView.leadingAnchor.constraint(equalTo: weakView.trailingAnchor, constant: standardMargin / 2),
+            mediumView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            mediumView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+        ])
+        
+        mediumView.backgroundColor = unusedColor
+        
+        // Strong View
+        addSubview(strongView)
+        strongView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            strongView.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: standardMargin * 2),
+            strongView.leadingAnchor.constraint(equalTo: mediumView.trailingAnchor, constant: standardMargin / 2),
+            strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height)
+        ])
+        
+        strongView.backgroundColor = unusedColor
     }
     
     required init?(coder aDecoder: NSCoder) {
