@@ -65,11 +65,54 @@ class PasswordField: UIControl {
         passwordView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         passwordView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
         passwordView.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
+        
+        // Password TextField
+        passwordView.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        
+        textField.topAnchor.constraint(equalTo: passwordView.topAnchor, constant: textFieldMargin).isActive = true
+        textField.leadingAnchor.constraint(equalTo: passwordView.leadingAnchor, constant: textFieldMargin).isActive = true
+        textField.trailingAnchor.constraint(equalTo: passwordView.trailingAnchor, constant: -textFieldMargin * 8).isActive = true
+        textField.bottomAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: -textFieldMargin).isActive = true
+        textField.delegate = self
+        textField.isSecureTextEntry = true
+        
+        // Password Button
+        passwordView.addSubview(showHideButton)
+        showHideButton.translatesAutoresizingMaskIntoConstraints = false
+        showHideButton.setImage(UIImage(named: "eyes-closed"), for: .normal)
+        showHideButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            showHideButton.topAnchor.constraint(equalTo: passwordView.topAnchor, constant: textFieldMargin),
+            showHideButton.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: textFieldMargin),
+            showHideButton.trailingAnchor.constraint(equalTo: passwordView.trailingAnchor, constant: -textFieldMargin),
+            showHideButton.bottomAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: -textFieldMargin)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    @objc
+    func buttonTapped(sender: UIButton) {
+        textField.isSecureTextEntry = !textField.isSecureTextEntry
+        if !textField.isSecureTextEntry {
+            let this = textField.text
+            textField.text = nil
+            textField.text = this
+            textField.font = nil
+            textField.font = UIFont.systemFont(ofSize: 14)
+        }
+        
+        if textField.isSecureTextEntry {
+            showHideButton.setImage(UIImage(named: "eyes-closed"), for: .normal)
+        } else {
+            showHideButton.setImage(UIImage(named: "eyes-open"), for: .normal)
+        }
     }
 }
 
