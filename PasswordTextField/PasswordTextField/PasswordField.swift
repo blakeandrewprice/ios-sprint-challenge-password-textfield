@@ -31,6 +31,7 @@ class PasswordField: UIControl {
     private let strongColor = UIColor(hue: 132/360.0, saturation: 60/100.0, brightness: 75/100.0, alpha: 1)
     
     private var titleLabel: UILabel = UILabel()
+    private var passwordView = UIView()
     private var textField: UITextField = UITextField()
     private var showHideButton: UIButton = UIButton()
     private var weakView: UIView = UIView()
@@ -39,10 +40,31 @@ class PasswordField: UIControl {
     private var strengthDescriptionLabel: UILabel = UILabel()
     
     func setup() {
-        // Lay out your subviews here
         
+        // Title Label
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: standardMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
+        
+        titleLabel.text = "ENTER PASSWORD"
+        titleLabel.font = labelFont
+        titleLabel.textColor = labelTextColor
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //Password TextField View
+        addSubview(passwordView)
+        passwordView.translatesAutoresizingMaskIntoConstraints = false
+        passwordView.layer.borderColor = textFieldBorderColor.cgColor
+        passwordView.layer.borderWidth = 2
+        
+        passwordView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin).isActive = true
+        passwordView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
+        passwordView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
+        passwordView.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
